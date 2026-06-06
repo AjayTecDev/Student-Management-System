@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Principal Dashboard — EduManage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#g2)"/>
+          <path d="M20 8L32 14V20C32 26.6 26.8 32.6 20 34C13.2 32.6 8 26.6 8 20V14L20 8Z" fill="white" opacity="0.9"/>
+          <path d="M15 20L18.5 23.5L25 17" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#4F46E5"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div>
+        <div class="sidebar-logo-name">EduManage</div>
+        <div class="sidebar-logo-sub">Admin Portal</div>
+      </div>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebarAvatar">P</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebarName">Principal</div>
+        <div class="sidebar-user-role">Administrator</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Main Menu</div>
+    <a class="nav-item active" onclick="showPage('dashboard')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-item" onclick="showPage('students')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+      Students
+    </a>
+    <a class="nav-item" onclick="showPage('messages')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
+      Messages
+      <span class="badge" id="msgBadge" style="display:none">0</span>
+    </a>
+
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="logout()">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/></svg>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+        <div class="topbar-subtitle" id="topbarSubtitle">Welcome back, Principal</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbarDate"></div>
+        <button class="topbar-icon-btn" onclick="refreshCurrent()" title="Refresh">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">Overview</div>
+          <div class="page-desc">Real-time snapshot of your institution</div>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card">
+            <div class="stat-icon indigo">👨‍🎓</div>
+            <div><div class="stat-val" id="statTotal">—</div><div class="stat-label">Total Students</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">📚</div>
+            <div><div class="stat-val" id="statCourses">—</div><div class="stat-label">Active Courses</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber">🆕</div>
+            <div><div class="stat-val" id="statYear">—</div><div class="stat-label">Added This Year</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon cyan">📩</div>
+            <div><div class="stat-val" id="statMsgs">—</div><div class="stat-label">Messages Sent</div></div>
+          </div>
+        </div>
+
+        <!-- Course enrollment + Recent students -->
+        <div class="grid-3-1">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Course Enrollment</span>
+            </div>
+            <div class="card-body" id="courseChartArea">
+              <div class="loading"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg> Loading...</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Semester Split</span>
+            </div>
+            <div class="card-body" id="semesterChartArea">
+              <div class="loading"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg> Loading...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Students Added -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Recently Added Students</span>
+            <button class="btn btn-primary btn-sm" onclick="showPage('students')">View All</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="recentStudentsTable">
+              <div class="loading"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg> Loading...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENTS PAGE -->
+      <div class="page" id="page-students">
+        <div class="page-header">
+          <div class="page-title">Students</div>
+          <div class="page-desc">Manage all enrolled students</div>
+        </div>
+
+        <div class="action-bar">
+          <div class="search-bar">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+            <input type="text" placeholder="Search students..." id="studentSearch" oninput="filterStudents()"/>
+          </div>
+          <button class="btn btn-primary" onclick="openAddStudentModal()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            Add Student
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div id="studentsTableWrap">
+              <div class="loading"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg> Loading students...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGES PAGE -->
+      <div class="page" id="page-messages">
+        <div class="page-header">
+          <div class="page-title">Messages</div>
+          <div class="page-desc">Send notices and announcements to students</div>
+        </div>
+
+        <div class="action-bar">
+          <div></div>
+          <button class="btn btn-primary" onclick="openSendMsgModal()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            Send Message
+          </button>
+        </div>
+
+        <div id="messagesArea">
+          <div class="loading"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg> Loading messages...</div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div>
+</div>
+
+<!-- Add Student Modal -->
+<div id="addStudentModal" style="display:none">
+  <div class="modal-overlay" onclick="closeModal('addStudentModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title" id="studentModalTitle">Add New Student</div>
+        <button class="modal-close" onclick="closeModal('addStudentModal')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-grid" id="studentForm">
+          <input type="hidden" id="editStudentId"/>
+          <div class="form-field">
+            <label class="form-label">Full Name *</label>
+            <input class="form-input" id="sName" placeholder="e.g. Arjun Sharma" required/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Email *</label>
+            <input class="form-input" type="email" id="sEmail" placeholder="student@example.com" required/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input class="form-input" id="sPhone" placeholder="10-digit number"/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Age</label>
+            <input class="form-input" type="number" id="sAge" placeholder="18–30" min="16" max="40"/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Course *</label>
+            <select class="form-select" id="sCourse" required>
+              <option value="">Select course...</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Semester</label>
+            <select class="form-select" id="sSemester">
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+              <option value="7">Semester 7</option>
+              <option value="8">Semester 8</option>
+            </select>
+          </div>
+          <div class="form-field" style="border-top:1px solid var(--border);grid-column:1/-1;padding-top:14px;margin-top:4px;">
+            <div style="font-size:0.8rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">Login Credentials (Optional)</div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="sUsername" placeholder="Login username"/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" id="sPassword" placeholder="Login password"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('addStudentModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveStudent()" id="saveStudentBtn">Add Student</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Credentials Modal -->
+<div id="credentialsModal" style="display:none">
+  <div class="modal-overlay" onclick="closeModal('credentialsModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">Set Login Credentials</div>
+        <button class="modal-close" onclick="closeModal('credentialsModal')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">Set username and password for <strong id="credStudentName"></strong></p>
+        <input type="hidden" id="credStudentId"/>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="credUsername" placeholder="e.g. arjun_s"/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" id="credPassword" placeholder="Strong password"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('credentialsModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveCredentials()">Save Credentials</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Send Message Modal -->
+<div id="sendMsgModal" style="display:none">
+  <div class="modal-overlay" onclick="closeModal('sendMsgModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">Send Message</div>
+        <button class="modal-close" onclick="closeModal('sendMsgModal')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></button>
+      </div>
+      <div class="modal-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="form-field">
+          <label class="form-label">Recipient</label>
+          <select class="form-select" id="msgRecipient">
+            <option value="">📢 Broadcast to All Students</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Subject</label>
+          <input class="form-input" id="msgSubject" placeholder="Message subject..."/>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Message *</label>
+          <textarea class="form-input" id="msgBody" placeholder="Write your message here..." rows="5"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('sendMsgModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="sendMessage()">
+          <svg viewBox="0 0 20 20" fill="currentColor" style="width:15px;height:15px"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/principal.js"></script>
+</body>
+</html>

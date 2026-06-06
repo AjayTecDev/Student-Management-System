@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduManage — Student Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-canvas">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <!-- Main container -->
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#grad)"/>
+            <path d="M20 8L32 14V20C32 26.6 26.8 32.6 20 34C13.2 32.6 8 26.6 8 20V14L20 8Z" fill="white" opacity="0.9"/>
+            <path d="M15 20L18.5 23.5L25 17" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" stop-color="#4F46E5"/>
+                <stop offset="100%" stop-color="#7C3AED"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">EduManage</span>
+          <span class="logo-sub">Student Management System</span>
+        </div>
+      </div>
+      <div class="header-badge">Academic Portal</div>
+    </header>
+
+    <!-- Login Card -->
+    <main class="login-main">
+      <div class="login-card" id="loginCard">
+
+        <!-- Role selector -->
+        <div class="role-selector">
+          <button class="role-btn active" id="btnPrincipal" onclick="switchRole('principal')">
+            <span class="role-icon">🎓</span>
+            <span>Principal</span>
+          </button>
+          <button class="role-btn" id="btnStudent" onclick="switchRole('student')">
+            <span class="role-icon">👤</span>
+            <span>Student</span>
+          </button>
+          <div class="role-slider" id="roleSlider"></div>
+        </div>
+
+        <!-- Form title -->
+        <div class="form-header">
+          <h1 class="form-title" id="formTitle">Principal Login</h1>
+          <p class="form-subtitle" id="formSubtitle">Access your administrative dashboard</p>
+        </div>
+
+        <!-- Login Form -->
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+          <div class="field-group">
+            <label class="field-label">Username</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" fill="currentColor"/></svg>
+              </span>
+              <input type="text" id="username" class="field-input" placeholder="Enter your username" required autocomplete="username" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" fill="currentColor"/></svg>
+              </span>
+              <input type="password" id="password" class="field-input" placeholder="Enter your password" required autocomplete="current-password" />
+              <button type="button" class="toggle-pw" onclick="togglePassword()">
+                <svg id="eyeIcon" viewBox="0 0 20 20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="currentColor"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="errorMsg" class="error-msg" style="display:none"></div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-loader" style="display:none">
+              <svg class="spin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/></svg>
+            </span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+
+        <!-- Demo hint -->
+        <div class="demo-hint">
+          <span class="hint-label">Demo credentials:</span>
+          <span id="hintText">admin / admin123</span>
+        </div>
+
+      </div>
+
+      <!-- Decorative card info panel -->
+      <div class="info-panel">
+        <div class="info-content">
+          <h2 class="info-title">Empowering<br/><em>Education</em></h2>
+          <p class="info-desc">A unified platform for managing students, courses, and academic communications seamlessly.</p>
+          <div class="info-stats">
+            <div class="istat">
+              <span class="istat-val">500+</span>
+              <span class="istat-label">Students</span>
+            </div>
+            <div class="istat">
+              <span class="istat-val">6</span>
+              <span class="istat-label">Courses</span>
+            </div>
+            <div class="istat">
+              <span class="istat-val">100%</span>
+              <span class="istat-label">Digital</span>
+            </div>
+          </div>
+        </div>
+        <div class="info-decoration">
+          <div class="deco-circle c1"></div>
+          <div class="deco-circle c2"></div>
+          <div class="deco-circle c3"></div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
